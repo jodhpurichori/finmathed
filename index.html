@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>FinMathed – Loan Calculator & Bank Comparison</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f7fb;
+      color: #172033;
+      line-height: 1.5;
+    }
+
+    header {
+      background: #123b68;
+      color: white;
+      padding: 18px 6%;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+    }
+
+    .logo span {
+      color: #f4b942;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 15px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #123b68, #1769aa);
+      color: white;
+      padding: 65px 6%;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .hero h1 {
+      font-size: 42px;
+      max-width: 750px;
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      max-width: 700px;
+      opacity: 0.95;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: -35px auto 50px;
+      padding: 0 20px;
+    }
+
+    .calculator {
+      background: white;
+      border-radius: 16px;
+      padding: 28px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+    }
+
+    .calculator h2 {
+      margin-bottom: 22px;
+      color: #123b68;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 7px;
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd3dd;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .calculate-btn {
+      margin-top: 22px;
+      background: #f4b942;
+      border: none;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .results {
+      margin-top: 30px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 15px;
+    }
+
+    .result-card {
+      background: #eef5fb;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .result-card small {
+      display: block;
+      color: #687386;
+      margin-bottom: 5px;
+    }
+
+    .result-card strong {
+      font-size: 25px;
+      color: #123b68;
+    }
+
+    .comparison {
+      margin-top: 40px;
+    }
+
+    .comparison h2 {
+      color: #123b68;
+      margin-bottom: 15px;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      padding: 15px;
+      border-bottom: 1px solid #e5e8ed;
+      text-align: left;
+    }
+
+    th {
+      background: #123b68;
+      color: white;
+    }
+
+    .apply-btn {
+      background: #1769aa;
+      color: white;
+      border: none;
+      padding: 9px 15px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .disclaimer {
+      margin-top: 25px;
+      font-size: 13px;
+      color: #687386;
+    }
+
+    footer {
+      background: #123b68;
+      color: white;
+      text-align: center;
+      padding: 25px;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 800px) {
+      .nav {
+        flex-direction: column;
+      }
+
+      nav a {
+        margin: 0 8px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .form-grid,
+      .results {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="nav">
+    <div class="logo">Fin<span>Mathed</span></div>
+
+    <nav>
+      <a href="#">Home</a>
+      <a href="#calculator">Calculator</a>
+      <a href="#comparison">Compare Banks</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Compare Loan Interest Rates & Calculate Your EMI</h1>
+    <p>
+      Compare loan rates, calculate EMI and understand your total
+      repayment before choosing a loan.
+    </p>
+  </div>
+</section>
+
+<main class="container">
+
+  <section class="calculator" id="calculator">
+
+    <h2>Loan EMI Calculator</h2>
+
+    <div class="form-grid">
+
+      <div>
+        <label for="loanType">Loan Type</label>
+
+        <select id="loanType">
+          <option>Home Loan</option>
+          <option>Personal Loan</option>
+          <option>Car Loan</option>
+          <option>Gold Loan</option>
+          <option>Education Loan</option>
+          <option>Agriculture / KCC Loan</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="amount">Loan Amount (₹)</label>
+
+        <input
+          type="number"
+          id="amount"
+          value="1000000"
+          min="1000"
+        >
+      </div>
+
+      <div>
+        <label for="rate">Interest Rate (% p.a.)</label>
+
+        <input
+          type="number"
+          id="rate"
+          value="8.5"
+          min="0"
+          step="0.01"
+        >
+      </div>
+
+      <div>
+        <label for="tenure">Tenure (Years)</label>
+
+        <input
+          type="number"
+          id="tenure"
+          value="5"
+          min="1"
+          max="40"
+        >
+      </div>
+
+    </div>
+
+    <button class="calculate-btn" onclick="calculateEMI()">
+      Calculate EMI
+    </button>
+
+    <div class="results">
+
+      <div class="result-card">
+        <small>Monthly EMI</small>
+        <strong id="emi">₹20,517</strong>
+      </div>
+
+      <div class="result-card">
+        <small>Total Interest</small>
+        <strong id="interest">₹2,31,020</strong>
+      </div>
+
+      <div class="result-card">
+        <small>Total Repayment</small>
+        <strong id="total">₹12,31,020</strong>
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <section class="comparison" id="comparison">
+
+    <h2>Bank Loan Interest Rate Comparison</h2>
+
+    <div class="table-wrapper">
+
+      <table>
+
+        <thead>
+          <tr>
+            <th>Bank</th>
+            <th>Interest Rate</th>
+            <th>Estimated EMI</th>
+            <th>Processing Fee</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+
+          <tr>
+            <td>Bank A</td>
+            <td>8.50%</td>
+            <td class="bank-emi">₹20,517</td>
+            <td>As applicable</td>
+            <td>
+              <button class="apply-btn">Apply</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Bank B</td>
+            <td>8.75%</td>
+            <td class="bank-emi">₹20,637</td>
+            <td>As applicable</td>
+            <td>
+              <button class="apply-btn">Apply</button>
+            </td>
+          </tr>
+
+          <tr>
+            <td>Bank C</td>
+            <td>9.00%</td>
+            <td class="bank-emi">₹20,758</td>
+            <td>As applicable</td>
+            <td>
+              <button class="apply-btn">Apply</button>
+            </td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+    <p class="disclaimer">
+      Interest rates shown above are illustrative for the initial website
+      design. Actual bank rates, fees, eligibility and loan terms should be
+      verified from the respective bank before applying.
+    </p>
+
+  </section>
+
+</main>
+
+<footer>
+  © 2026 FinMathed | Loan Calculator & Bank Comparison
+</footer>
+
+
+<script>
+
+function formatRupee(number) {
+  return "₹" + Math.round(number).toLocaleString("en-IN");
+}
+
+
+function calculateEMI() {
+
+  const principal = Number(
+    document.getElementById("amount").value
+  );
+
+  const annualRate = Number(
+    document.getElementById("rate").value
+  );
+
+  const years = Number(
+    document.getElementById("tenure").value
+  );
+
+  if (
+    principal <= 0 ||
+    annualRate < 0 ||
+    years <= 0
+  ) {
+    alert("Please enter valid loan details.");
+    return;
+  }
+
+  const monthlyRate = annualRate / 12 / 100;
+
+  const months = years * 12;
+
+  let emi;
+
+  if (monthlyRate === 0) {
+
+    emi = principal / months;
+
+  } else {
+
+    emi =
+      principal *
+      monthlyRate *
+      Math.pow(1 + monthlyRate, months) /
+      (Math.pow(1 + monthlyRate, months) - 1);
+
+  }
+
+  const totalPayment = emi * months;
+
+  const totalInterest = totalPayment - principal;
+
+  document.getElementById("emi").textContent =
+    formatRupee(emi);
+
+  document.getElementById("interest").textContent =
+    formatRupee(totalInterest);
+
+  document.getElementById("total").textContent =
+    formatRupee(totalPayment);
+}
+
+calculateEMI();
+
+</script>
+
+</body>
+</html>
