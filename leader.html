@@ -62,7 +62,7 @@ tr:hover td{background:#fafcff}
 <main class="container">
   <section id="loginCard" class="login-card">
     <h1>Leader Login</h1>
-    <div class="sub">FinMathed private dashboard</div>
+    <div class="sub">FinMathEd private dashboard</div>
     <div id="loginError" class="error"></div>
     <label for="email">Admin Email</label>
     <input id="email" type="email" autocomplete="username" placeholder="Enter admin email">
@@ -75,7 +75,7 @@ tr:hover td{background:#fafcff}
   <section id="dashboard">
     <div class="topbar">
       <div>
-        <h1>FinMathed Admin Dashboard</h1>
+        <h1>FinMathEd Admin Dashboard</h1>
         <div id="signedInAs" class="note"></div>
       </div>
       <div class="actions">
@@ -131,7 +131,13 @@ tr:hover td{background:#fafcff}
 <script>
 const SUPABASE_URL = "https://crasqxcyrfxckquhzvgz.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_e9WlqW0blLMZTTJecMcEvA_lOaWdFh4";
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let supabaseClient = null;
+try {
+  if (!window.supabase || !window.supabase.createClient) throw new Error("Supabase library could not be loaded. Please check your internet connection and reload the page.");
+  supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+} catch (e) {
+  window.addEventListener("DOMContentLoaded", () => showError(e.message));
+}
 
 let allRecords = [];
 
@@ -141,12 +147,14 @@ const dateText = s => s ? new Date(s).toLocaleString("en-IN",{dateStyle:"medium"
 const pct = n => Number(n || 0).toFixed(2) + "%";
 
 async function init(){
+  if(!supabaseClient) return;
   const {data:{session}} = await supabaseClient.auth.getSession();
   if(session) showDashboard(session);
 }
 init();
 
 async function login(){
+  if(!supabaseClient){showError("Supabase could not be initialized. Please reload the page.");return}
   const email=document.getElementById("email").value.trim();
   const password=document.getElementById("password").value;
   const err=document.getElementById("loginError");
@@ -244,7 +252,7 @@ function viewDetail(source,id){
       ["Total Repayment",money(r.total_repayment)],["Total Loan Cost",money(r.total_loan_cost)],["Total EMI After New Loan",money(r.total_emi_after_new_loan)],
       ["Selected EMI/NMI Ratio",pct(r.emi_nmi_ratio)],["Actual EMI/NMI Ratio",pct(r.actual_emi_nmi_ratio)],["Estimated Disposable Income",money(r.estimated_disposable_income)],
       ["Maximum Total EMI at Selected Ratio",money(r.maximum_emi_at_selected_ratio)],["Additional EMI Capacity",money(r.additional_emi_capacity)],["Indicative Loan Capacity",money(r.indicative_loan_capacity)],
-      ["CIBIL Score",r.cibil_score || "Not entered"],["CIBIL Source",r.cibil_source || "Not specified"]]
+      ["CIBIL Score",r.cibil_score || "Not entered"],["CIBIL Source",r.cibil_source || "Not specified"]
     ];
   }
   document.getElementById("detailContent").innerHTML='<div class="detail-grid">'+items.map(x=>detailItem(x[0],x[1])).join('')+'</div>';
