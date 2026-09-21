@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FinMathed Leader Dashboard</title>
+<title>FinMathEd | Leader Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
 :root{--blue:#1677ff;--purple:#8b5cf6;--orange:#f97316;--dark:#172033;--muted:#667085;--bg:#f5f7fb;--card:#fff;--border:#e6eaf0;--danger:#dc2626;--green:#059669}
@@ -37,6 +37,14 @@ tr:hover td{background:#fafcff}
 .empty{text-align:center;color:var(--muted);padding:35px}
 .note{font-size:12px;color:var(--muted);margin-top:10px}
 .loading{text-align:center;padding:30px;color:var(--muted)}
+
+.modal-backdrop{position:fixed;inset:0;background:rgba(16,24,40,.58);z-index:2000;padding:24px;overflow:auto}
+.modal-card{background:#fff;border-radius:18px;max-width:900px;margin:30px auto;padding:22px;box-shadow:0 20px 70px rgba(0,0,0,.25)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px}
+.detail-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.detail-item{border:1px solid var(--border);border-radius:10px;padding:11px;background:#fafbfc}.detail-item .k{font-size:11px;color:var(--muted);font-weight:800;text-transform:uppercase}.detail-item .v{font-weight:800;margin-top:3px;word-break:break-word}
+.calc-badge{display:inline-block;padding:5px 8px;border-radius:999px;font-weight:800;font-size:11px;background:#eef4ff;color:#1554a5}.calc-badge.new{background:#f3eefe;color:#6b3bbd}
+@media(max-width:600px){.detail-grid{grid-template-columns:1fr}}
 @media(max-width:900px){.metrics{grid-template-columns:repeat(2,1fr)}.filters{grid-template-columns:1fr 1fr}.filters .wide{grid-column:1/-1}}
 @media(max-width:600px){.metrics{grid-template-columns:1fr}.filters{grid-template-columns:1fr}.container{width:92%}header{padding:18px 4%}}
 </style>
@@ -45,7 +53,7 @@ tr:hover td{background:#fafcff}
 
 <header>
   <div>
-    <div class="brand"><span class="fin">FIN</span><span class="math">MATH</span><span class="ed">ED</span></div>
+    <div class="brand"><span class="fin">Fin</span><span class="math">Math</span><span class="ed">Ed</span></div>
     <small>Secure Leader Dashboard</small>
   </div>
   <button id="logoutBtn" class="btn gray" style="display:none" onclick="logout()">Logout</button>
@@ -78,31 +86,31 @@ tr:hover td{background:#fafcff}
     </div>
 
     <div class="metrics">
-      <div class="metric"><div class="label">Total Calculations</div><div id="mRecords" class="value">0</div></div>
-      <div class="metric"><div class="label">Total Outstanding</div><div id="mOutstanding" class="value">₹0</div></div>
-      <div class="metric"><div class="label">Total Estimated Net Benefit</div><div id="mBenefit" class="value">₹0</div></div>
-      <div class="metric"><div class="label">Average EMI Difference</div><div id="mEmi" class="value">₹0</div></div>
+      <div class="metric"><div class="label">Total Enquiries</div><div id="mRecords" class="value">0</div></div>
+      <div class="metric"><div class="label">Transfer Calculations</div><div id="mTransfer" class="value">0</div></div>
+      <div class="metric"><div class="label">New Loan Enquiries</div><div id="mNewLoan" class="value">0</div></div>
+      <div class="metric"><div class="label">Total Loan Amount</div><div id="mAmount" class="value">₹0</div></div>
     </div>
 
     <div class="panel">
-      <h2>Customer Calculations</h2>
+      <h2>Customer Enquiries</h2><div class="note">New Loan records show the selected EMI/NMI benchmark and CIBIL details. No FOIR field is used here.</div>
       <div class="filters">
         <div class="wide">
           <label>Search</label>
           <input id="search" placeholder="Name, mobile, loan type..." oninput="renderTable()">
         </div>
         <div>
-          <label>Loan Type</label>
-          <select id="loanFilter" onchange="renderTable()">
-            <option value="">All Loan Types</option>
-            <option>Home Loan</option><option>Personal Loan</option><option>Vehicle Loan</option>
-            <option>Education Loan</option><option>Business Loan</option><option>Other</option>
+          <label>Calculator</label>
+          <select id="calculatorFilter" onchange="renderTable()">
+            <option value="">All Calculators</option>
+            <option value="transfer">Loan Takeover / Balance Transfer</option>
+            <option value="newloan">New Loan Financial Check</option>
           </select>
         </div>
         <div>
           <label>Records</label>
           <select id="limitFilter" onchange="loadRecords()">
-            <option value="100">Latest 100</option><option value="500">Latest 500</option><option value="1000">Latest 1000</option>
+            <option value="100">Latest 100 each</option><option value="500">Latest 500 each</option><option value="1000">Latest 1000 each</option>
           </select>
         </div>
         <button class="btn gray" onclick="clearFilters()">Clear</button>
@@ -110,6 +118,13 @@ tr:hover td{background:#fafcff}
       <div id="status" class="note"></div>
       <div id="tableArea" class="table-wrap" style="margin-top:14px"><div class="loading">Loading records...</div></div>
     </div>
+
+    <div id="detailModal" class="modal-backdrop" style="display:none" onclick="closeDetail(event)">
+      <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-head"><h2>Enquiry Details</h2><button class="btn gray" onclick="closeDetail()">Close</button></div>
+        <div id="detailContent"></div>
+      </div>
+    </div>    </div>
   </section>
 </main>
 
@@ -123,6 +138,7 @@ let allRecords = [];
 const money = n => "₹" + Number(n || 0).toLocaleString("en-IN",{maximumFractionDigits:0});
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));
 const dateText = s => s ? new Date(s).toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"}) : "-";
+const pct = n => Number(n || 0).toFixed(2) + "%";
 
 async function init(){
   const {data:{session}} = await supabaseClient.auth.getSession();
@@ -140,9 +156,7 @@ async function login(){
   if(error){showError(error.message);return}
   showDashboard(data.session);
 }
-function showError(msg){
-  const e=document.getElementById("loginError");e.textContent=msg;e.style.display="block";
-}
+function showError(msg){const e=document.getElementById("loginError");e.textContent=msg;e.style.display="block"}
 async function showDashboard(session){
   document.getElementById("loginCard").style.display="none";
   document.getElementById("dashboard").style.display="block";
@@ -150,117 +164,148 @@ async function showDashboard(session){
   document.getElementById("signedInAs").textContent="Signed in as " + (session?.user?.email || "");
   await loadRecords();
 }
-async function logout(){
-  await supabaseClient.auth.signOut();
-  location.reload();
-}
+async function logout(){await supabaseClient.auth.signOut();location.reload()}
 
 async function loadRecords(){
   const limit=Number(document.getElementById("limitFilter").value || 100);
-  document.getElementById("tableArea").innerHTML='<div class="loading">Loading records from Supabase...</div>';
-  const {data,error}=await supabaseClient
-    .from("loan_calculations")
-    .select("*")
-    .order("created_at",{ascending:false})
-    .limit(limit);
-  if(error){
-    document.getElementById("tableArea").innerHTML='<div class="empty">Unable to load records: '+esc(error.message)+'</div>';
-    return;
-  }
-  allRecords=data||[];
+  document.getElementById("tableArea").innerHTML='<div class="loading">Loading both enquiry types from Supabase...</div>';
+  const [transferRes,newLoanRes]=await Promise.all([
+    supabaseClient.from("loan_calculations").select("*").order("created_at",{ascending:false}).limit(limit),
+    supabaseClient.from("new_loan_enquiries").select("*").order("created_at",{ascending:false}).limit(limit)
+  ]);
+
+  const transfer=(transferRes.data||[]).map(r=>({source:"transfer",...r}));
+  const newloan=(newLoanRes.data||[]).map(r=>({source:"newloan",...r}));
+  allRecords=[...transfer,...newloan].sort((a,b)=>new Date(b.created_at)-new Date(a.created_at));
   updateMetrics();
   renderTable();
-  document.getElementById("status").textContent=allRecords.length+" online record(s) loaded.";
+
+  let status=transfer.length+" takeover record(s) + "+newloan.length+" new-loan enquiry(ies) loaded online.";
+  if(transferRes.error) status += " | Takeover error: "+transferRes.error.message;
+  if(newLoanRes.error) status += " | New Loan error: "+newLoanRes.error.message;
+  document.getElementById("status").textContent=status;
 }
 
 function updateMetrics(){
+  const transfers=allRecords.filter(r=>r.source==="transfer");
+  const newloans=allRecords.filter(r=>r.source==="newloan");
   document.getElementById("mRecords").textContent=allRecords.length;
-  document.getElementById("mOutstanding").textContent=money(allRecords.reduce((a,r)=>a+Number(r.outstanding_amount||0),0));
-  document.getElementById("mBenefit").textContent=money(allRecords.reduce((a,r)=>a+Number(r.estimated_net_benefit||0),0));
-  const avg=allRecords.length ? allRecords.reduce((a,r)=>a+Number(r.emi_difference||0),0)/allRecords.length : 0;
-  document.getElementById("mEmi").textContent=money(avg);
+  document.getElementById("mTransfer").textContent=transfers.length;
+  document.getElementById("mNewLoan").textContent=newloans.length;
+  const amount=transfers.reduce((a,r)=>a+Number(r.outstanding_amount||0),0)+newloans.reduce((a,r)=>a+Number(r.required_loan_amount||0),0);
+  document.getElementById("mAmount").textContent=money(amount);
 }
 
 function filtered(){
   const q=document.getElementById("search").value.trim().toLowerCase();
-  const type=document.getElementById("loanFilter").value;
+  const type=document.getElementById("calculatorFilter").value;
   return allRecords.filter(r=>{
-    const hay=[r.customer_name,r.customer_mobile,r.loan_type].join(" ").toLowerCase();
-    return (!q || hay.includes(q)) && (!type || r.loan_type===type);
+    const hay=[r.customer_name,r.customer_mobile,r.loan_type,r.cibil_score,r.cibil_source].join(" ").toLowerCase();
+    return (!q || hay.includes(q)) && (!type || r.source===type);
   });
 }
 
 function renderTable(){
   const rows=filtered();
-  if(!rows.length){document.getElementById("tableArea").innerHTML='<div class="empty">No matching records found.</div>';return}
-  let html=`<table><thead><tr>
-  <th>Date/Time</th><th>Customer</th><th>Mobile</th><th>Loan Type</th><th>Outstanding</th>
-  <th>Existing Rate</th><th>New Rate</th><th>Existing EMI</th><th>New EMI</th>
-  <th>EMI Difference</th><th>Interest Saving</th><th>Charges</th><th>Net Benefit</th>
-  <th>Recovery</th><th>Action</th></tr></thead><tbody>`;
+  if(!rows.length){document.getElementById("tableArea").innerHTML='<div class="empty">No matching enquiries found.</div>';return}
+  let html=`<table><thead><tr><th>Date/Time</th><th>Calculator</th><th>Customer</th><th>Mobile</th><th>Loan Type</th><th>Loan Amount</th><th>Rate</th><th>EMI</th><th>EMI/NMI</th><th>CIBIL</th><th>Key Result</th><th>Action</th></tr></thead><tbody>`;
   for(const r of rows){
-    html+=`<tr>
-      <td>${esc(dateText(r.created_at))}</td>
-      <td><strong>${esc(r.customer_name)}</strong></td>
-      <td>${esc(r.customer_mobile)}</td>
-      <td><span class="badge">${esc(r.loan_type)}</span></td>
-      <td>${money(r.outstanding_amount)}</td>
-      <td>${Number(r.existing_interest_rate||0).toFixed(2)}%</td>
-      <td>${Number(r.new_interest_rate||0).toFixed(2)}%</td>
-      <td>${money(r.existing_emi)}</td>
-      <td>${money(r.new_emi)}</td>
-      <td>${money(r.emi_difference)}</td>
-      <td>${money(r.interest_saving)}</td>
-      <td>${money(r.total_charges)}</td>
-      <td><strong>${money(r.estimated_net_benefit)}</strong></td>
-      <td>${esc(r.transfer_cost_recovery || "-")}</td>
-      <td><button class="btn danger" onclick="deleteOne(${Number(r.id)})">Delete</button></td>
-    </tr>`;
+    const isT=r.source==="transfer";
+    const calc=isT?"Loan Takeover / Balance Transfer":"New Loan Financial Check";
+    const amount=isT?r.outstanding_amount:r.required_loan_amount;
+    const rate=isT?r.new_interest_rate:r.interest_rate;
+    const emi=isT?r.new_emi:r.new_loan_emi;
+    const key=isT?"Net Benefit: "+money(r.estimated_net_benefit):"EMI/NMI: "+pct(r.emi_nmi_ratio);
+    html+=`<tr><td>${esc(dateText(r.created_at))}</td><td><span class="calc-badge ${isT?'':'new'}">${isT?'Takeover':'New Loan'}</span></td><td><strong>${esc(r.customer_name)}</strong></td><td>${esc(r.customer_mobile)}</td><td>${esc(r.loan_type)}</td><td>${money(amount)}</td><td>${pct(rate)}</td><td>${money(emi)}</td><td>${isT?"-":pct(r.emi_nmi_ratio)}</td><td>${r.cibil_score?esc(r.cibil_score):"-"}</td><td>${esc(key)}</td><td><button class="btn secondary" onclick="viewDetail('${r.source}',${Number(r.id)})">View</button> <button class="btn danger" onclick="deleteOne('${r.source}',${Number(r.id)})">Delete</button></td></tr>`;
   }
   html+="</tbody></table>";
   document.getElementById("tableArea").innerHTML=html;
 }
 
-async function deleteOne(id){
-  if(!confirm("Delete this calculation permanently from Supabase?")) return;
-  const {error}=await supabaseClient.from("loan_calculations").delete().eq("id",id);
+function value(v){return v===null||v===undefined||v===""?"-":esc(v)}
+function detailItem(k,v){return `<div class="detail-item"><div class="k">${esc(k)}</div><div class="v">${value(v)}</div></div>`}
+function viewDetail(source,id){
+  const r=allRecords.find(x=>x.source===source && Number(x.id)===Number(id)); if(!r)return;
+  let items=[];
+  if(source==="transfer"){
+    items=[
+      ["Calculator","Loan Takeover / Balance Transfer"],["Date/Time",dateText(r.created_at)],["Customer Name",r.customer_name],["Mobile",r.customer_mobile],["Loan Type",r.loan_type],
+      ["Outstanding Loan",money(r.outstanding_amount)],["Existing Interest Rate",pct(r.existing_interest_rate)],["Existing Tenure",`${r.existing_tenure_years||0}Y ${r.existing_tenure_months||0}M`],
+      ["New Interest Rate",pct(r.new_interest_rate)],["New Tenure",`${r.new_tenure_years||0}Y ${r.new_tenure_months||0}M`],
+      ["Processing Charge",`${pct(r.processing_charge_percent)} (${money(r.processing_charge)})`],["Stamp Charge",`${pct(r.stamp_charge_percent)} (${money(r.stamp_charge)})`],["Miscellaneous Charge",money(r.miscellaneous_charge)],["Total Charges",money(r.total_charges)],
+      ["Existing EMI",money(r.existing_emi)],["New EMI",money(r.new_emi)],["EMI Difference",money(r.emi_difference)],["Existing Total Payment",money(r.existing_total_payment)],["New Total Payment",money(r.new_total_payment)],
+      ["Existing Total Interest",money(r.existing_total_interest)],["New Total Interest",money(r.new_total_interest)],["Interest Saving",money(r.interest_saving)],["Estimated Net Benefit",money(r.estimated_net_benefit)],["Transfer Cost Recovery",r.transfer_cost_recovery],["CIBIL Score",r.cibil_score || "Not entered"],["CIBIL Source",r.cibil_source || "Not specified"]
+    ];
+  }else{
+    items=[
+      ["Calculator","New Loan Financial Check"],["Date/Time",dateText(r.created_at)],["Customer Name",r.customer_name],["Mobile",r.customer_mobile],["Loan Type",r.loan_type],
+      ["Monthly Net Income",money(r.monthly_income)],["Existing EMI / Obligations",money(r.existing_emi)],["Required New Loan",money(r.required_loan_amount)],["Interest Rate",pct(r.interest_rate)],
+      ["Tenure",`${r.tenure_years||0}Y ${r.tenure_months||0}M`],["Processing Charge",`${pct(r.processing_charge_percent)} (${money(r.processing_charge)})`],["New Loan EMI",money(r.new_loan_emi)],["Total Interest",money(r.total_interest)],
+      ["Total Repayment",money(r.total_repayment)],["Total Loan Cost",money(r.total_loan_cost)],["Total EMI After New Loan",money(r.total_emi_after_new_loan)],
+      ["Selected EMI/NMI Ratio",pct(r.emi_nmi_ratio)],["Actual EMI/NMI Ratio",pct(r.actual_emi_nmi_ratio)],["Estimated Disposable Income",money(r.estimated_disposable_income)],
+      ["Maximum Total EMI at Selected Ratio",money(r.maximum_emi_at_selected_ratio)],["Additional EMI Capacity",money(r.additional_emi_capacity)],["Indicative Loan Capacity",money(r.indicative_loan_capacity)],
+      ["CIBIL Score",r.cibil_score || "Not entered"],["CIBIL Source",r.cibil_source || "Not specified"]]
+    ];
+  }
+  document.getElementById("detailContent").innerHTML='<div class="detail-grid">'+items.map(x=>detailItem(x[0],x[1])).join('')+'</div>';
+  document.getElementById("detailModal").style.display="block";
+}
+function closeDetail(e){if(e && e.target && e.target.id!=="detailModal")return;document.getElementById("detailModal").style.display="none"}
+
+async function deleteOne(source,id){
+  if(!confirm("Delete this enquiry permanently from Supabase?"))return;
+  const table=source==="transfer"?"loan_calculations":"new_loan_enquiries";
+  const {error}=await supabaseClient.from(table).delete().eq("id",id);
   if(error){alert("Delete failed: "+error.message);return}
   await loadRecords();
 }
-
 async function deleteAll(){
   if(!allRecords.length){alert("There are no loaded records to delete.");return}
-  if(!confirm("Delete all loaded records permanently? This cannot be undone.")) return;
-  const ids=allRecords.map(r=>r.id);
-  const {error}=await supabaseClient.from("loan_calculations").delete().in("id",ids);
-  if(error){alert("Delete failed: "+error.message);return}
+  if(!confirm("Delete ALL loaded enquiries from BOTH calculators? This cannot be undone."))return;
+  const transferIds=allRecords.filter(r=>r.source==="transfer").map(r=>r.id);
+  const newIds=allRecords.filter(r=>r.source==="newloan").map(r=>r.id);
+  if(transferIds.length){const x=await supabaseClient.from("loan_calculations").delete().in("id",transferIds);if(x.error){alert("Transfer deletion failed: "+x.error.message);return}}
+  if(newIds.length){const x=await supabaseClient.from("new_loan_enquiries").delete().in("id",newIds);if(x.error){alert("New loan deletion failed: "+x.error.message);return}}
   await loadRecords();
 }
-
-function clearFilters(){
-  document.getElementById("search").value="";
-  document.getElementById("loanFilter").value="";
-  renderTable();
-}
-
-function csvCell(v){
-  const s=String(v ?? "");
-  return '"' + s.replace(/"/g,'""') + '"';
-}
+function clearFilters(){document.getElementById("search").value="";document.getElementById("calculatorFilter").value="";renderTable()}
+function csvCell(v){const s=String(v??"");return '"'+s.replace(/"/g,'""')+'"'}
 function exportCSV(){
   const rows=filtered();
   if(!rows.length){alert("No records to export.");return}
-  const headers=["Date/Time","Customer Name","Mobile","Loan Type","Outstanding Amount","Existing Rate","New Rate","Existing EMI","New EMI","EMI Difference","Interest Saving","Processing Charge","Stamp Charge","Miscellaneous Charge","Total Charges","Estimated Net Benefit","Transfer Cost Recovery"];
+  const headers=[
+    "Calculator","Date/Time","Customer Name","Mobile","Loan Type","Loan Amount",
+    "Existing Interest Rate","New Interest Rate","Existing EMI","New EMI","EMI Difference",
+    "Interest Saving","Processing Charge %","Processing Charge","Stamp Charge %","Stamp Charge",
+    "Miscellaneous Charge","Total Charges","Net Benefit","Transfer Cost Recovery",
+    "Monthly Net Income","Existing EMI Obligations","Interest Rate","Tenure","New Loan EMI",
+    "Total Interest","Total Repayment","Total Loan Cost","Total EMI After New Loan",
+    "Selected EMI/NMI Ratio","Actual EMI/NMI Ratio","Maximum Total EMI","Additional EMI Capacity",
+    "Indicative Loan Capacity","Estimated Disposable Income","CIBIL Score","CIBIL Source"
+  ];
   const lines=[headers.map(csvCell).join(",")];
-  rows.forEach(r=>lines.push([
-    dateText(r.created_at),r.customer_name,r.customer_mobile,r.loan_type,r.outstanding_amount,
-    r.existing_interest_rate,r.new_interest_rate,r.existing_emi,r.new_emi,r.emi_difference,
-    r.interest_saving,r.processing_charge,r.stamp_charge,r.miscellaneous_charge,r.total_charges,
-    r.estimated_net_benefit,r.transfer_cost_recovery
-  ].map(csvCell).join(",")));
+  rows.forEach(r=>{
+    const t=r.source==="transfer";
+    const vals=t?[
+      "Loan Takeover / Balance Transfer",dateText(r.created_at),r.customer_name,r.customer_mobile,r.loan_type,
+      r.outstanding_amount,r.existing_interest_rate,r.new_interest_rate,r.existing_emi,r.new_emi,r.emi_difference,
+      r.interest_saving,r.processing_charge_percent,r.processing_charge,r.stamp_charge_percent,r.stamp_charge,
+      r.miscellaneous_charge,r.total_charges,r.estimated_net_benefit,r.transfer_cost_recovery,
+      "","","","", "","","","","","","","","","",r.cibil_score||"",r.cibil_source||""
+    ]:[
+      "New Loan Financial Check",dateText(r.created_at),r.customer_name,r.customer_mobile,r.loan_type,
+      r.required_loan_amount,"",r.interest_rate,"",r.new_loan_emi,"","",r.processing_charge_percent,
+      r.processing_charge,"","","", "","","",r.monthly_income,r.existing_emi,r.interest_rate,
+      `${r.tenure_years||0}Y ${r.tenure_months||0}M`,r.new_loan_emi,r.total_interest,r.total_repayment,
+      r.total_loan_cost,r.total_emi_after_new_loan,r.emi_nmi_ratio,r.actual_emi_nmi_ratio,
+      r.maximum_emi_at_selected_ratio,r.additional_emi_capacity,r.indicative_loan_capacity,
+      r.estimated_disposable_income,r.cibil_score||"",r.cibil_source||""
+    ];
+    lines.push(vals.map(csvCell).join(","));
+  });
   const blob=new Blob(["\ufeff"+lines.join("\n")],{type:"text/csv;charset=utf-8"});
   const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");a.href=url;a.download="finmathed-loan-calculations.csv";a.click();
+  const a=document.createElement("a");a.href=url;a.download="finmathed-all-loan-enquiries.csv";a.click();
   URL.revokeObjectURL(url);
 }
 </script>

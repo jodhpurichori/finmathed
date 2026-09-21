@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>FinMathed | Finance • Mathematics • Education</title>
+<title>FinMathEd | Finance • Mathematics • Education</title>
 
-<meta name="description" content="FinMathed — Finance, Mathematics and Education. Smart financial tools, calculators and educational resources.">
+<meta name="description" content="FinMathEd — Finance, Mathematics and Education. Smart finance and mathematics tools, calculators and educational resources.">
 
 <style>
 *{
@@ -54,6 +54,68 @@ select{
 }
 
 /* =========================================================
+   FINANCE / MATH VISUAL LANGUAGE
+========================================================= */
+
+body{
+    background:
+        radial-gradient(circle at 8% 8%,rgba(22,119,255,.10),transparent 22%),
+        radial-gradient(circle at 92% 24%,rgba(139,92,246,.09),transparent 24%),
+        radial-gradient(circle at 78% 88%,rgba(249,115,22,.055),transparent 20%),
+        repeating-linear-gradient(0deg,rgba(22,119,255,.018) 0,rgba(22,119,255,.018) 1px,transparent 1px,transparent 34px),
+        repeating-linear-gradient(90deg,rgba(139,92,246,.014) 0,rgba(139,92,246,.014) 1px,transparent 1px,transparent 34px),
+        linear-gradient(180deg,#f8fbff 0%,#f6f8fc 55%,#eef4ff 100%);
+    background-attachment:fixed;
+}
+
+.cibil-panel{
+    margin-top:18px;
+    padding:18px;
+    border:1px solid #dfe7f5;
+    border-radius:18px;
+    background:linear-gradient(135deg,#f8fbff,#fbf8ff);
+}
+.cibil-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+.cibil-actions{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:12px;
+}
+.cibil-link{
+    display:inline-flex;
+    align-items:center;
+    padding:9px 13px;
+    border-radius:10px;
+    background:#fff;
+    border:1px solid #d7dfed;
+    color:#334155;
+    text-decoration:none;
+    font-weight:800;
+    font-size:13px;
+}
+.cibil-note{
+    margin-top:9px;
+    color:#667085;
+    font-size:12px;
+}
+.save-status{
+    min-height:20px;
+    margin-top:10px;
+    font-size:13px;
+    font-weight:800;
+}
+.save-status.success{color:#16803c;}
+.save-status.error{color:#b42318;}
+@media(max-width:720px){
+    .cibil-grid{grid-template-columns:1fr;}
+}
+
+/* =========================================================
    HEADER
 ========================================================= */
 
@@ -67,7 +129,7 @@ header{
 }
 
 .navbar{
-    min-height:76px;
+    min-height:62px;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -75,7 +137,7 @@ header{
 
 .logo{
     text-decoration:none;
-    font-size:29px;
+    font-size:26px;
     font-weight:900;
     letter-spacing:-1.5px;
 }
@@ -112,14 +174,23 @@ header{
 }
 
 .hero::before{
-    content:"";
+    content:"₹  EMI  %  +  −  ×  ÷  60%  9.5%  →";
     position:absolute;
-    width:420px;
+    width:560px;
     height:420px;
     border:1px solid rgba(22,119,255,.08);
     border-radius:50%;
     right:-180px;
     top:-160px;
+    color:rgba(22,119,255,.10);
+    font-size:18px;
+    font-weight:900;
+    letter-spacing:5px;
+    padding:40px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    white-space:nowrap;
 }
 
 .hero::after{
@@ -915,7 +986,83 @@ footer{
         flex:1;
     }
 }
+
+/* ================= CALCULATOR SELECTOR ================= */
+.calculator-selector{padding:28px 0 8px}
+.selector-card{background:#fff;border:1px solid #e4e9f0;border-radius:24px;padding:28px;box-shadow:0 18px 50px rgba(16,24,40,.06)}
+.selector-card h2{text-align:center;margin-bottom:8px}.selector-card>p{text-align:center;color:#697586;margin-bottom:22px}
+.selector-options{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.selector-option{border:2px solid #e4e9f0;background:#fff;border-radius:18px;padding:22px;text-align:left;cursor:pointer;transition:.2s}
+.selector-option:hover{transform:translateY(-2px);border-color:#9dbfff;box-shadow:0 10px 25px rgba(22,119,255,.08)}
+.selector-option.active{border-color:#1677ff;background:#f5f9ff}
+.selector-option strong{display:block;font-size:19px;margin-bottom:5px}.selector-option span{color:#697586;font-size:14px}
+.calculator-choice-note{display:none;margin-top:16px;text-align:center;color:#344054;font-weight:800}
+.change-calculator{display:none;margin:0 auto 20px;padding:10px 16px;background:#eef4ff;color:#1554a5;border:0;border-radius:10px;font-weight:800;cursor:pointer}
+.calculator-section-hidden{display:none!important}
+@media(max-width:700px){.selector-options{grid-template-columns:1fr}}
+
+/* ================= NEW LOAN ENQUIRY CALCULATOR ================= */
+.new-loan-card{position:relative;overflow:hidden}
+.new-loan-card::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,#1677ff,#8b5cf6,#f97316)}
+.loan-help{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 24px}
+.loan-help-item{padding:14px 16px;border:1px solid #e7eaf0;border-radius:14px;background:#f8fafc}
+.loan-help-item strong{display:block;font-size:14px;margin-bottom:4px}
+.loan-help-item span{font-size:12px;color:#667085;line-height:1.45}
+.new-loan-results{display:none;margin-top:26px}
+.new-loan-results.show{display:block}
+.loan-result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.loan-result-card{padding:18px;border:1px solid #e5e7eb;border-radius:16px;background:#fff}
+.loan-result-card .label{font-size:12px;color:#667085;font-weight:700}
+.loan-result-card .value{font-size:22px;font-weight:800;margin-top:7px}
+.loan-result-card.highlight{background:linear-gradient(135deg,#eff6ff,#faf5ff)}
+.loan-status{padding:16px;border-radius:14px;background:#f8fafc;border:1px solid #e5e7eb;margin-bottom:18px}
+.loan-status strong{display:block;font-size:17px;margin-bottom:5px}
+.loan-status small{color:#667085;line-height:1.5}
+.financial-bars{display:grid;gap:12px;margin-top:12px}
+.bar-row{display:grid;grid-template-columns:150px 1fr 90px;gap:10px;align-items:center;font-size:13px}
+.bar-track{height:13px;background:#eef2f7;border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;border-radius:999px;transition:width .5s ease}
+.bar-fill.income{background:#1677ff}.bar-fill.emi{background:#8b5cf6}.bar-fill.disposable{background:#f97316}
+.loan-disclaimer{font-size:12px;color:#667085;line-height:1.55;margin-top:14px}
+.eligibility-box{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:16px}
+.eligibility-item{padding:15px;border-radius:14px;background:#fff;border:1px solid #e5e7eb}
+.eligibility-item .small{font-size:12px;color:#667085}.eligibility-item strong{display:block;font-size:19px;margin-top:5px}
+@media(max-width:900px){.loan-help{grid-template-columns:1fr}.loan-result-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.loan-result-grid,.eligibility-box{grid-template-columns:1fr}.bar-row{grid-template-columns:115px 1fr 75px;font-size:12px}}
+
+/* =========================================================
+   REPAYMENT SCHEDULE / SHARING
+========================================================= */
+.schedule-panel{margin-top:24px;padding:22px;border:1px solid #dce5f3;border-radius:20px;background:linear-gradient(135deg,#ffffff,#f7faff);}
+.schedule-controls{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:16px 0;align-items:end;}
+.schedule-option{padding:14px;border:1px solid #dfe7f5;border-radius:14px;background:#fff;}
+.schedule-option label{display:flex;gap:9px;align-items:center;font-weight:700;margin-bottom:8px;cursor:pointer;}
+.schedule-option input[type="date"]{width:100%;padding:11px;border:1px solid #cfd8e8;border-radius:10px;background:#fff;}
+.schedule-summary{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 16px;}
+.schedule-pill{padding:9px 12px;border-radius:999px;background:#eef4ff;color:#334155;font-size:13px;font-weight:700;}
+.schedule-table-wrap{overflow:auto;border:1px solid #e1e7f0;border-radius:14px;max-height:520px;background:#fff;}
+.schedule-table{width:100%;border-collapse:collapse;min-width:760px;font-size:13px;}
+.schedule-table th,.schedule-table td{padding:10px 12px;border-bottom:1px solid #edf1f6;text-align:right;white-space:nowrap;}
+.schedule-table th:first-child,.schedule-table td:first-child,.schedule-table th:nth-child(2),.schedule-table td:nth-child(2){text-align:left;}
+.schedule-table th{position:sticky;top:0;background:#f3f7fd;color:#334155;z-index:1;}
+.schedule-note{font-size:12px;color:#64748b;margin-top:10px;}
+.schedule-dual-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start;}
+.schedule-subpanel{border:1px solid #e2e8f0;border-radius:16px;background:#fff;overflow:hidden;}
+.schedule-subtitle{padding:14px 16px;font-size:15px;font-weight:800;background:#f5f8fd;border-bottom:1px solid #e2e8f0;color:#24324a;}
+.schedule-subpanel .schedule-table-wrap{border:0;border-radius:0;max-height:500px;}
+.schedule-subpanel .schedule-table{min-width:700px;}
+.new-loan-share-actions{margin-top:18px;justify-content:flex-end;}
+@media(max-width:980px){.schedule-dual-grid{grid-template-columns:1fr;}}
+@media(max-width:700px){.schedule-controls{grid-template-columns:1fr}.schedule-panel{padding:16px}}
+.print-only{display:none}
+@media print{
+  body{background:#fff!important}.no-print,.report-actions,.calculator-choice-section,.section:not(#results){display:none!important}
+  #results{display:block!important}.schedule-table-wrap{max-height:none;overflow:visible}.schedule-table{font-size:9px}
+  .print-only{display:block}.schedule-panel{break-inside:auto}.result-card,.net-benefit-card,.highlight-grid{break-inside:avoid}
+}
+
 </style>
+<script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
 </head>
 
 
@@ -936,136 +1083,48 @@ footer{
 <div class="container navbar">
 
     <a href="#" class="logo">
-        <span class="fin">FIN</span><span class="math">MATH</span><span class="ed">ED</span>
+        <span class="fin">Fin</span><span class="math">Math</span><span class="ed">Ed</span>
     </a>
 
-    <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#calculator">Calculator</a>
-        <a href="#results">Results</a>
-    </nav>
 
 </div>
 
 </header>
 
 
-<!-- ================= CREATIVE INTRO ================= -->
-
-<section class="hero" id="about">
-
-<div class="container hero-grid">
-
-    <div>
-
-        <div class="hero-label">
-            <span></span>
-            Finance • Mathematics • Education
-        </div>
-
-
-        <h1>
-
-            <span class="brand-line">
-                <span class="fin">FIN</span><span class="math">MATH</span><span class="ed">ED</span>
-            </span>
-
-            <span class="tagline">
-                Understand Money. Make Better Decisions.
-            </span>
-
-        </h1>
-
-
-        <p class="hero-description">
-
-            FinMathed brings finance, mathematics and education together
-            to make complex numbers easier to understand. Explore practical
-            financial tools, smart calculators and useful knowledge —
-            designed to turn numbers into meaningful insights.
-
-        </p>
-
-
-        <div class="hero-points">
-
-            <div class="hero-point">
-                ✓ Simple
-            </div>
-
-            <div class="hero-point">
-                ✓ Practical
-            </div>
-
-            <div class="hero-point">
-                ✓ Data Driven
-            </div>
-
-            <div class="hero-point">
-                ✓ Easy to Understand
-            </div>
-
-        </div>
-
+<!-- ================= CALCULATOR SELECTOR ================= -->
+<section class="calculator-selector" id="calculator-selector">
+<div class="container">
+  <div class="selector-card">
+    <h2>Choose Your Loan Calculator</h2>
+    <p>Select one option. Only the selected calculator and its complete input form will be shown.</p>
+    <div class="selector-options">
+      <button type="button" class="selector-option" id="chooseTransfer" onclick="selectCalculator('transfer')">
+        <strong>🔁 Loan Takeover CalC</strong>
+        <span>Compare your existing loan with a proposed new loan and see EMI, interest saving and net benefit.</span>
+      </button>
+      <button type="button" class="selector-option" id="chooseNewLoan" onclick="selectCalculator('newloan')">
+        <strong>📐 New Loan CalC</strong>
+        <span>Estimate EMI, EMI/NMI ratio, disposable income and indicative loan capacity.</span>
+      </button>
     </div>
-
-
-    <div class="hero-visual">
-
-        <div class="future-card">
-
-            <div class="future-card-top">
-                What FinMathed brings together
-            </div>
-
-            <h3>
-                Finance × Math × Education
-            </h3>
-
-            <p>
-                One platform designed to make numbers useful,
-                understandable and actionable.
-            </p>
-
-
-            <div class="future-grid">
-
-                <div class="future-item">
-                    <strong class="fin">FIN</strong>
-                    <span>Finance</span>
-                </div>
-
-                <div class="future-item">
-                    <strong class="math">MATH</strong>
-                    <span>Mathematics</span>
-                </div>
-
-                <div class="future-item">
-                    <strong class="ed">ED</strong>
-                    <span>Education</span>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
+    <div id="calculatorChoiceNote" class="calculator-choice-note"></div>
+  </div>
 </div>
-
 </section>
 
+<button type="button" id="changeCalculatorBtn" class="change-calculator" onclick="resetCalculatorChoice()">← Change Calculator</button>
 
 <!-- ================= CALCULATOR ================= -->
 
-<section class="section" id="calculator">
+<section class="section calculator-choice-section calculator-section-hidden" id="calculator">
 
 <div class="container">
 
     <div class="section-title">
 
         <h2>
-            Loan Transfer Calculator
+            Loan Takeover CalC
         </h2>
 
         <p>
@@ -1132,34 +1191,32 @@ footer{
 
                 <select id="loanType">
 
-                    <option value="Home Loan">
-                        Home Loan
-                    </option>
-
-                    <option value="Personal Loan">
-                        Personal Loan
-                    </option>
-
-                    <option value="Vehicle Loan">
-                        Vehicle Loan
-                    </option>
-
-                    <option value="Education Loan">
-                        Education Loan
-                    </option>
-
-                    <option value="Business Loan">
-                        Business Loan
-                    </option>
-
-                    <option value="Other">
-                        Other
-                    </option>
+                    <option value="Home Loan">Home Loan</option>
+                    <option value="Home Loan Top Up">Home Loan Top Up</option>
+                    <option value="Gold Loan">Gold Loan</option>
+                    <option value="Car Loan">Car Loan</option>
+                    <option value="Personal Loan">Personal Loan</option>
+                    <option value="Business Loan">Business Loan</option>
+                    <option value="Other Loan">Other Loan</option>
 
                 </select>
 
             </div>
 
+        </div>
+
+        <div class="cibil-panel">
+            <div class="form-section-title" style="margin-top:0">Credit Profile (Optional)</div>
+            <div class="cibil-grid">
+                <div class="input-group">
+                    <label for="transferCibilScore">CIBIL Score (300–900)</label>
+                    <input type="number" id="transferCibilScore" min="300" max="900" step="1" placeholder="Example: 760">
+                </div>
+            </div>
+            <div id="transferCibilHelp" class="cibil-note">Enter the CIBIL score manually from your credit report or credit-score app.</div>
+            <div class="cibil-actions">
+                <a class="cibil-link" href="https://www.cibil.com/freecibilscore" target="_blank" rel="noopener">↗ Check Free CIBIL Score</a>
+            </div>
         </div>
 
 
@@ -1303,14 +1360,16 @@ footer{
             <div class="input-group">
 
                 <label for="processing">
-                    Processing Charge (₹)
+                    Processing Charge (% of Loan Amount)
                 </label>
 
                 <input
                     type="number"
                     id="processing"
                     min="0"
+                    step="0.01"
                     value="0"
+                    placeholder="Example: 0.50"
                 >
 
             </div>
@@ -1319,14 +1378,16 @@ footer{
             <div class="input-group">
 
                 <label for="stamp">
-                    Stamp Charge (₹)
+                    Stamp Charge (% of Loan Amount)
                 </label>
 
                 <input
                     type="number"
                     id="stamp"
                     min="0"
+                    step="0.01"
                     value="0"
+                    placeholder="Example: 0.25"
                 >
 
             </div>
@@ -1342,8 +1403,11 @@ footer{
                     type="number"
                     id="misc"
                     min="0"
+                    step="0.01"
                     value="0"
+                    placeholder="Example: 500"
                 >
+                <div class="mobile-note">Processing and stamp charges are entered as a percentage of the loan amount. Miscellaneous charges are entered directly in ₹.</div>
 
             </div>
 
@@ -1364,6 +1428,164 @@ footer{
 
 </section>
 
+
+
+<!-- ================= NEW LOAN ENQUIRY CALCULATOR ================= -->
+<section class="section calculator-choice-section calculator-section-hidden" id="new-loan">
+<div class="container">
+    <div class="section-title">
+        <h2>New Loan CalC</h2>
+        <p>Estimate your EMI, total cost, affordability and indicative loan capacity before applying.</p>
+    </div>
+
+    <div class="calculator-card new-loan-card">
+        <div class="loan-help">
+            <div class="loan-help-item"><strong>💳 EMI Planning</strong><span>See the expected monthly EMI and total repayment.</span></div>
+            <div class="loan-help-item"><strong>📊 Affordability</strong><span>Understand your total EMI compared with monthly net income.</span></div>
+            <div class="loan-help-item"><strong>💰 Loan Capacity</strong><span>See an indicative loan capacity using your selected EMI/NMI ratio.</span></div>
+        </div>
+
+        <div class="form-section-title">Customer Details</div>
+        <div class="form-grid">
+            <div class="input-group">
+                <label for="newCustomerName">Customer Name</label>
+                <input type="text" id="newCustomerName" placeholder="Enter customer name">
+            </div>
+            <div class="input-group">
+                <label for="newCustomerMobile">Mobile Number</label>
+                <input type="tel" id="newCustomerMobile" maxlength="10" inputmode="numeric" placeholder="Enter 10 digit mobile number" oninput="this.value=this.value.replace(/[^0-9]/g,'').slice(0,10)">
+            </div>
+            <div class="input-group full">
+                <label for="newLoanType">Loan Type</label>
+                <select id="newLoanType">
+                    <option value="Home Loan">Home Loan</option>
+                    <option value="Home Loan Top Up">Home Loan Top Up</option>
+                    <option value="Gold Loan">Gold Loan</option>
+                    <option value="Car Loan">Car Loan</option>
+                    <option value="Personal Loan">Personal Loan</option>
+                    <option value="Business Loan">Business Loan</option>
+                    <option value="Other Loan">Other Loan</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="cibil-panel">
+            <div class="form-section-title" style="margin-top:0">Credit Profile (Optional)</div>
+            <div class="cibil-grid">
+                <div class="input-group">
+                    <label for="newCibilScore">CIBIL Score (300–900)</label>
+                    <input type="number" id="newCibilScore" min="300" max="900" step="1" placeholder="Example: 760">
+                </div>
+            </div>
+            <div id="newCibilHelp" class="cibil-note">Enter the CIBIL score manually from your credit report or credit-score app.</div>
+            <div class="cibil-actions">
+                <a class="cibil-link" href="https://www.cibil.com/freecibilscore" target="_blank" rel="noopener">↗ Check Free CIBIL Score</a>
+            </div>
+        </div>
+
+        <div class="form-section-title">Income & Existing Obligations</div>
+        <div class="form-grid">
+            <div class="input-group">
+                <label for="netIncome">Monthly Net Income (₹)</label>
+                <input type="number" id="netIncome" min="0" placeholder="Example: 60000">
+            </div>
+            <div class="input-group">
+                <label for="existingEMI">Existing Monthly EMI / Obligations (₹)</label>
+                <input type="number" id="existingEMI" min="0" value="0" placeholder="Example: 12000">
+            </div>
+            <div class="input-group">
+                <label for="emiNmiRatio">Applicable EMI / NMI Ratio (%)</label>
+                <input type="number" id="emiNmiRatio" min="1" max="100" step="0.1" value="60" placeholder="Example: 60">
+                <div class="mobile-note">Example: 60% means maximum total EMI of ₹60,000 on ₹1,00,000 monthly net income, for this calculation.</div>
+            </div>
+        </div>
+
+        <div class="form-section-title">Proposed New Loan</div>
+        <div class="form-grid">
+            <div class="input-group">
+                <label for="requiredLoanAmount">Required New Loan Amount (₹)</label>
+                <input type="number" id="requiredLoanAmount" min="0" placeholder="Example: 1500000">
+            </div>
+            <div class="input-group">
+                <label for="newLoanRate">Interest Rate (% p.a.)</label>
+                <input type="number" id="newLoanRate" min="0" step="0.01" placeholder="Example: 8.50">
+            </div>
+            <div class="input-group">
+                <label>Loan Tenure</label>
+                <div class="tenure-grid">
+                    <input type="number" id="newLoanYears" min="0" placeholder="Years">
+                    <input type="number" id="newLoanMonths" min="0" max="11" placeholder="Months">
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="newProcessingCharge">Processing Charge (% of Loan Amount)</label>
+                <input type="number" id="newProcessingCharge" min="0" value="0" placeholder="Example: 0.50">
+            </div>
+        </div>
+
+        <button class="calculate-btn" onclick="calculateNewLoan()">Check My New Loan</button>
+        <div id="newLoanSaveStatus" class="save-status" aria-live="polite"></div>
+
+        <div id="newLoanResults" class="new-loan-results">
+            <div class="form-section-title">Your Financial Analysis</div>
+            <div class="loan-result-grid">
+                <div class="loan-result-card highlight"><div class="label">New Loan EMI</div><div id="nlEMI" class="value">₹0</div></div>
+                <div class="loan-result-card"><div class="label">Total Interest</div><div id="nlInterest" class="value">₹0</div></div>
+                <div class="loan-result-card"><div class="label">Total Repayment</div><div id="nlRepayment" class="value">₹0</div></div>
+                <div class="loan-result-card"><div class="label">Total Loan Cost incl. Charges</div><div id="nlCost" class="value">₹0</div></div>
+                <div class="loan-result-card"><div class="label">Total EMI After New Loan</div><div id="nlTotalEMI" class="value">₹0</div></div>
+                <div class="loan-result-card"><div class="label">EMI-to-Income Ratio</div><div id="nlRatio" class="value">0%</div></div>
+                <div class="loan-result-card"><div class="label">Estimated Disposable Income</div><div id="nlDisposable" class="value">₹0</div></div>
+                <div class="loan-result-card"><div class="label">Maximum EMI at Selected EMI/NMI</div><div id="nlMaxEMI" class="value">₹0</div></div>
+            </div>
+
+            <div id="nlStatus" class="loan-status"></div>
+
+            <div class="panel" style="margin-bottom:0">
+                <div class="form-section-title" style="margin-top:0">Income & EMI View</div>
+                <div class="financial-bars">
+                    <div class="bar-row"><span>Monthly Income</span><div class="bar-track"><div id="barIncome" class="bar-fill income" style="width:100%"></div></div><strong id="barIncomeText">₹0</strong></div>
+                    <div class="bar-row"><span>Total EMI</span><div class="bar-track"><div id="barEMI" class="bar-fill emi" style="width:0%"></div></div><strong id="barEMIText">₹0</strong></div>
+                    <div class="bar-row"><span>Disposable</span><div class="bar-track"><div id="barDisposable" class="bar-fill disposable" style="width:0%"></div></div><strong id="barDisposableText">₹0</strong></div>
+                </div>
+
+                <div class="eligibility-box">
+                    <div class="eligibility-item"><div class="small">Indicative Loan Capacity</div><strong id="nlCapacity">₹0</strong></div>
+                    <div class="eligibility-item"><div class="small">Additional EMI Capacity</div><strong id="nlAdditionalEMI">₹0</strong></div>
+                </div>
+
+                <div class="loan-disclaimer">
+                    This is an indicative financial analysis, not a loan sanction or guarantee. The selected EMI/NMI ratio is an input for this calculation, not a universal lender rule. Actual eligibility, interest rate, charges and sanctioned amount depend on the lender's policy, income assessment, credit profile/CIBIL, existing obligations, documentation and other applicable conditions.
+                </div>
+
+                <div class="schedule-panel" id="newLoanSchedulePanel">
+                    <h3>📅 Monthly EMI Repayment Schedule</h3>
+                    <div class="schedule-note">Created date is automatic. Choose the repayment start month automatically from today or select a manual date.</div>
+                    <div class="schedule-controls">
+                        <div class="schedule-option">
+                            <label><input type="radio" name="newLoanScheduleMode" value="auto" checked onchange="updateScheduleMode('new')"> Auto — Start from current date</label>
+                            <div id="newLoanAutoDate" class="schedule-pill"></div>
+                        </div>
+                        <div class="schedule-option">
+                            <label><input type="radio" name="newLoanScheduleMode" value="manual" onchange="updateScheduleMode('new')"> Manual start date</label>
+                            <input type="date" id="newLoanManualDate" disabled onchange="renderNewLoanSchedule()">
+                        </div>
+                    </div>
+                    <div class="schedule-summary" id="newLoanScheduleSummary"></div>
+                    <div class="schedule-table-wrap" id="newLoanScheduleTable"></div>
+                    <div class="schedule-note">The schedule is an illustrative amortization based on the entered loan amount, rate, tenure and EMI. Actual lender schedules can differ because of rounding, dates, fees and other terms.</div>
+                </div>
+
+                <div class="report-actions new-loan-share-actions">
+                    <button class="action-btn primary" type="button" onclick="savePDF()">📄 PDF Report</button>
+                    <button class="action-btn" type="button" onclick="sharePDF()">📤 Share PDF</button>
+                    <button class="action-btn whatsapp" type="button" onclick="shareWhatsApp()">💬 WhatsApp</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
 
 <!-- ================= RESULTS ================= -->
 
@@ -1387,7 +1609,7 @@ footer{
                 class="customer-subtitle"
                 id="customerResultSubtitle"
             >
-                FinMathed Customer Report
+                FinMathEd Customer Report
             </div>
 
         </div>
@@ -1399,14 +1621,14 @@ footer{
                 class="action-btn primary"
                 onclick="savePDF()"
             >
-                📄 Save / Print PDF
+                📄 PDF Report
             </button>
 
             <button
                 class="action-btn"
-                onclick="shareReport()"
+                onclick="sharePDF()"
             >
-                📤 Share Report
+                📤 Share PDF
             </button>
 
             <button
@@ -1646,24 +1868,22 @@ footer{
     </div>
 
 
-    <!-- CHART -->
-
-    <div class="result-card">
-
-        <h3>
-            Cumulative Repayment Comparison
-        </h3>
-
-        <div class="chart-wrapper">
-
-            <canvas
-                id="loanChart"
-                width="1100"
-                height="340"
-            ></canvas>
-
+    <div class="result-card schedule-panel" id="takeoverSchedulePanel">
+        <h3>📅 Monthly EMI Repayment Schedule</h3>
+        <div class="schedule-note">Created date is automatic. Choose the repayment start month automatically from today or select a manual date.</div>
+        <div class="schedule-controls">
+            <div class="schedule-option">
+                <label><input type="radio" name="takeoverScheduleMode" value="auto" checked onchange="updateScheduleMode('takeover')"> Auto — Start from current date</label>
+                <div id="takeoverAutoDate" class="schedule-pill"></div>
+            </div>
+            <div class="schedule-option">
+                <label><input type="radio" name="takeoverScheduleMode" value="manual" onchange="updateScheduleMode('takeover')"> Manual start date</label>
+                <input type="date" id="takeoverManualDate" disabled onchange="renderTakeoverSchedule()">
+            </div>
         </div>
-
+        <div class="schedule-summary" id="takeoverScheduleSummary"></div>
+        <div class="schedule-table-wrap" id="takeoverScheduleTable"></div>
+        <div class="schedule-note">The schedule is an illustrative amortization based on the entered principal, rate, tenure and EMI. Actual lender schedules can differ because of rounding, dates, fees and other terms.</div>
     </div>
 
 
@@ -1964,8 +2184,129 @@ footer{
 </section>
 
 
+<!-- ================= CREATIVE INTRO ================= -->
+
+<section class="hero" id="about">
+
+<div class="container hero-grid">
+
+    <div>
+
+        <div class="hero-label">
+            <span></span>
+            Finance • Mathematics • Education
+        </div>
+
+
+        <h1>
+
+            <span class="brand-line">
+                <span class="fin">Fin</span><span class="math">Math</span><span class="ed">Ed</span>
+            </span>
+
+            <span class="tagline">
+                Understand Money. Make Better Decisions.
+            </span>
+
+        </h1>
+
+
+        <p class="hero-description">
+
+            FinMathEd brings finance, mathematics and education together
+            to make complex numbers easier to understand. Explore practical
+            financial tools, smart calculators and useful knowledge —
+            designed to turn numbers into meaningful insights.
+
+        </p>
+
+
+        <div class="hero-points">
+
+            <div class="hero-point">
+                ✓ Simple
+            </div>
+
+            <div class="hero-point">
+                ✓ Practical
+            </div>
+
+            <div class="hero-point">
+                ✓ Data Driven
+            </div>
+
+            <div class="hero-point">
+                ✓ Easy to Understand
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-visual">
+
+        <div class="future-card">
+
+            <div class="future-card-top">
+                What FinMathEd brings together
+            </div>
+
+            <h3>
+                Finance × Math × Education
+            </h3>
+
+            <p>
+                One platform designed to make numbers useful,
+                understandable and actionable.
+            </p>
+
+
+            <div class="future-grid">
+
+                <div class="future-item">
+                    <strong class="fin">FIN</strong>
+                    <span>Finance</span>
+                </div>
+
+                <div class="future-item">
+                    <strong class="math">MATH</strong>
+                    <span>Mathematics</span>
+                </div>
+
+                <div class="future-item">
+                    <strong class="ed">ED</strong>
+                    <span>Education</span>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</section>
+
+
+
+
 <!-- ================= FOOTER ================= -->
 
+
+<section class="creator-section" style="margin:42px auto 0;max-width:1100px;padding:0 24px 18px;text-align:center;">
+  <button type="button" id="creatorToggle" aria-expanded="false" aria-controls="creatorDetails" style="border:0;background:none;cursor:pointer;font:inherit;font-weight:800;color:inherit;padding:10px 16px;border-radius:999px;">
+    About the Creator <span id="creatorArrow" aria-hidden="true">⌄</span>
+  </button>
+  <div id="creatorDetails" hidden style="margin:14px auto 0;padding:28px 22px;max-width:900px;border-radius:22px;background:linear-gradient(135deg,rgba(22,119,255,.07),rgba(139,92,246,.08),rgba(249,115,22,.06));border:1px solid rgba(100,100,120,.14);">
+    <h2 style="margin:0;font-size:clamp(24px,4vw,34px);font-weight:850;">Vikas Jangid</h2>
+    <div style="margin-top:7px;font-size:15px;font-weight:700;">Banking Professional • Finance &amp; Mathematics Educator</div>
+    <p style="max-width:760px;margin:15px auto 0;line-height:1.7;font-size:14px;opacity:.82;">FinMathEd brings <strong>Finance, Mathematics and Education</strong> together in one simple place. Created by a banking professional currently working as a <strong>Manager in a Public Sector Undertaking Bank</strong>, with a background in teaching and education, FinMathEd is designed to make financial numbers and loan calculations easier to understand.</p>
+    <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin:18px auto 14px;"><span>🏦 Banking</span><span>📊 Finance</span><span>∑ Mathematics</span><span>🎓 Education</span></div>
+    <div style="font-size:15px;font-weight:800;">“Making Finance Simple. Understanding Numbers Better.”</div>
+  </div>
+</section>
 <footer>
 
 <div class="container">
@@ -1976,7 +2317,7 @@ footer{
         <div>
 
             <div class="footer-brand">
-                <span class="fin">FIN</span><span class="math">MATH</span><span class="ed">ED</span>
+                <span class="fin">Fin</span><span class="math">Math</span><span class="ed">Ed</span>
             </div>
 
             <div class="footer-tagline">
@@ -1986,40 +2327,38 @@ footer{
             </div>
 
             <div class="designer-name">
-                Designed & Developed with 💡 by Vikas Jangid
+                Designed & Developed by Vikas Jangid
             </div>
 
         </div>
 
 
         <div class="footer-contact">
-
-
             <a
                 class="contact-item"
-                href="tel:+919216011340"
-            >
-                📞 9216011340
-            </a>
-
-
-            <a
-                class="contact-item"
-                href="https://instagram.com/vikas_j_"
+                href="https://instagram.com/finmathed"
                 target="_blank"
                 rel="noopener"
             >
-                📷 @vikas_j_
+                Instagram · @finmathed
             </a>
-
 
             <a
                 class="contact-item whatsapp-footer"
-                href="https://wa.me/919216011340?text=Hello%20Vikas%2C%20I%20used%20the%20FinMathed%20Loan%20Transfer%20Calculator."
+                href="https://wa.me/919216011340?text=Hello%20Vikas%2C%20I%20used%20the%20FinMathEd%20calculator."
                 target="_blank"
                 rel="noopener"
             >
-                💬 WhatsApp
+                WhatsApp
+            </a>
+
+            <a
+                class="contact-item"
+                href="https://www.youtube.com/@finmathed"
+                target="_blank"
+                rel="noopener"
+            >
+                YouTube · @finmathed
             </a>
 
 
@@ -2030,7 +2369,7 @@ footer{
 
     <div class="footer-bottom">
 
-        © 2026 FinMathed. All Rights Reserved.
+        © 2026 FinMathEd. All Rights Reserved.
 
         <div class="footer-chips">
 
@@ -2062,6 +2401,9 @@ footer{
 
 
 <!-- Private admin dashboard is hosted separately at /leader. -->
+
+<!-- Supabase browser client -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 <script>
 
@@ -2102,6 +2444,47 @@ The publishable key is safe for browser use because database
 access is controlled by Row Level Security (RLS).
 */
 
+
+/* =========================================================
+   CALCULATOR SELECTION
+========================================================= */
+function selectCalculator(type){
+    const transfer = document.getElementById("calculator");
+    const newLoan = document.getElementById("new-loan");
+    const note = document.getElementById("calculatorChoiceNote");
+    const change = document.getElementById("changeCalculatorBtn");
+    const transferBtn = document.getElementById("chooseTransfer");
+    const newLoanBtn = document.getElementById("chooseNewLoan");
+
+    transfer.classList.add("calculator-section-hidden");
+    newLoan.classList.add("calculator-section-hidden");
+    transferBtn.classList.remove("active");
+    newLoanBtn.classList.remove("active");
+
+    if(type === "transfer"){
+        transfer.classList.remove("calculator-section-hidden");
+        transferBtn.classList.add("active");
+        note.textContent = "Loan Switch & Savings selected — compare your existing loan with a new offer and see the potential savings.";
+        transfer.scrollIntoView({behavior:"smooth",block:"start"});
+    }else{
+        newLoan.classList.remove("calculator-section-hidden");
+        newLoanBtn.classList.add("active");
+        note.textContent = "Loan Fit Check selected — estimate EMI, affordability and indicative loan capacity.";
+        newLoan.scrollIntoView({behavior:"smooth",block:"start"});
+    }
+    note.style.display="block";
+    change.style.display="block";
+}
+
+function resetCalculatorChoice(){
+    document.getElementById("calculator").classList.add("calculator-section-hidden");
+    document.getElementById("new-loan").classList.add("calculator-section-hidden");
+    document.getElementById("chooseTransfer").classList.remove("active");
+    document.getElementById("chooseNewLoan").classList.remove("active");
+    document.getElementById("calculatorChoiceNote").style.display="none";
+    document.getElementById("changeCalculatorBtn").style.display="none";
+    document.getElementById("calculator-selector").scrollIntoView({behavior:"smooth",block:"start"});
+}
 
 /* =========================================================
    BASIC FUNCTIONS
@@ -2227,12 +2610,12 @@ async function calculateLoan(){
             document.getElementById("newMonths").value
         ) || 0;
 
-    const processing =
+    const processingPercent =
         Number(
             document.getElementById("processing").value
         ) || 0;
 
-    const stamp =
+    const stampPercent =
         Number(
             document.getElementById("stamp").value
         ) || 0;
@@ -2354,6 +2737,24 @@ async function calculateLoan(){
 
     /* CHARGES */
 
+    if(processingPercent < 0 || processingPercent > 100){
+        alert("Please enter a valid processing charge percentage between 0% and 100%.");
+        return;
+    }
+
+    if(stampPercent < 0 || stampPercent > 100){
+        alert("Please enter a valid stamp charge percentage between 0% and 100%.");
+        return;
+    }
+
+    if(misc < 0){
+        alert("Please enter a valid miscellaneous charge.");
+        return;
+    }
+
+    const processing = outstanding * processingPercent / 100;
+    const stamp = outstanding * stampPercent / 100;
+
     const totalCharges =
         processing +
         stamp +
@@ -2436,7 +2837,7 @@ async function calculateLoan(){
         loanType +
         " • " +
         customerMobile +
-        " • FinMathed";
+        " • FinMathEd";
 
 
     const netElement =
@@ -2869,6 +3270,9 @@ async function calculateLoan(){
     });
 
 
+    const cibil = getCibil("transfer");
+    if(cibil === null) return;
+
     /* =====================================================
        RECORD
     ===================================================== */
@@ -2894,6 +3298,12 @@ async function calculateLoan(){
 
         loanType:
             loanType,
+
+        cibilScore:
+            cibil.score,
+
+        cibilSource:
+            cibil.source,
 
         outstanding:
             outstanding,
@@ -2921,6 +3331,12 @@ async function calculateLoan(){
 
         newTotalMonths:
             newTotalMonths,
+
+        processingPercent:
+            processingPercent,
+
+        stampPercent:
+            stampPercent,
 
         processing:
             processing,
@@ -2975,6 +3391,13 @@ async function calculateLoan(){
 
     // Save the calculation to the secure online Supabase database.
     await saveRecordToSupabase(record);
+
+    setTakeoverReportData({
+        customerName, customerMobile, loanType, cibilScore:cibil.score,
+        principal:outstanding, oldRate, oldMonths:oldTotalMonths, oldEMI,
+        newRate, newMonths:newTotalMonths, newEMI, interestSaving, emiDifference,
+        netSaving, benchmark:0
+    });
 
 }
 
@@ -3032,6 +3455,8 @@ async function saveRecordToSupabase(record){
                     customer_name: record.customerName,
                     customer_mobile: record.customerMobile,
                     loan_type: record.loanType,
+                    cibil_score: record.cibilScore,
+                    cibil_source: record.cibilSource,
 
                     outstanding_amount: record.outstanding,
                     existing_interest_rate: record.oldRate,
@@ -3042,6 +3467,8 @@ async function saveRecordToSupabase(record){
                     new_tenure_years: record.newYears,
                     new_tenure_months: record.newMonths,
 
+                    processing_charge_percent: record.processingPercent,
+                    stamp_charge_percent: record.stampPercent,
                     processing_charge: record.processing,
                     stamp_charge: record.stamp,
                     miscellaneous_charge: record.misc,
@@ -3075,7 +3502,7 @@ async function saveRecordToSupabase(record){
         }
 
         console.log(
-            "FinMathed calculation saved online."
+            "FinMathEd calculation saved online."
         );
 
         return true;
@@ -3366,29 +3793,144 @@ function drawLoanChart(
 }
 
 
+
+/* =========================================================
+   REPAYMENT SCHEDULE ENGINE
+========================================================= */
+let currentReportData = null;
+
+function todayISO(){
+    const d=new Date();
+    const m=String(d.getMonth()+1).padStart(2,'0');
+    const day=String(d.getDate()).padStart(2,'0');
+    return `${d.getFullYear()}-${m}-${day}`;
+}
+function formatMonthYear(value){
+    const d=new Date(value+'T00:00:00');
+    return d.toLocaleDateString('en-IN',{month:'short',year:'numeric'});
+}
+function activeScheduleDate(mode){
+    const auto=todayISO();
+    if(mode==='takeover'){
+        return document.querySelector('input[name="takeoverScheduleMode"]:checked')?.value==='manual' ? (document.getElementById('takeoverManualDate').value||auto) : auto;
+    }
+    return document.querySelector('input[name="newLoanScheduleMode"]:checked')?.value==='manual' ? (document.getElementById('newLoanManualDate').value||auto) : auto;
+}
+function setupScheduleDates(){
+    const today=todayISO();
+    ['takeover','newLoan'].forEach(prefix=>{
+        const el=document.getElementById(prefix==='takeover'?'takeoverAutoDate':'newLoanAutoDate');
+        if(el) el.textContent='Created / start: '+formatMonthYear(today);
+    });
+}
+function updateScheduleMode(type){
+    const isTakeover=type==='takeover';
+    const mode=document.querySelector(`input[name="${isTakeover?'takeover':'newLoan'}ScheduleMode"]:checked`)?.value||'auto';
+    const dateEl=document.getElementById(isTakeover?'takeoverManualDate':'newLoanManualDate');
+    if(dateEl){dateEl.disabled=mode!=='manual'; if(mode==='manual'&&!dateEl.value) dateEl.value=todayISO();}
+    isTakeover?renderTakeoverSchedule():renderNewLoanSchedule();
+}
+function buildSchedule(principal, annualRate, months, startDate, emi){
+    const rows=[]; let balance=Math.max(0,principal); const r=annualRate/12/100;
+    for(let i=1;i<=months && balance>0.005;i++){
+        const interest=annualRate===0?0:balance*r;
+        let payment=Math.min(emi,balance+interest);
+        let principalPart=Math.max(0,payment-interest);
+        if(principalPart>balance) principalPart=balance;
+        const closing=Math.max(0,balance-principalPart);
+        const d=new Date(startDate+'T00:00:00'); d.setMonth(d.getMonth()+i-1);
+        rows.push({no:i,date:d.toLocaleDateString('en-IN',{month:'short',year:'numeric'}),opening:balance,emi:payment,interest,principal:principalPart,closing});
+        balance=closing;
+    }
+    return rows;
+}
+function scheduleTableHTML(rows, title){
+    if(!rows.length) return '<div class="schedule-note">Calculate the loan first to generate the schedule.</div>';
+    const body=rows.map(r=>`<tr><td>${r.no}</td><td>${r.date}</td><td>${formatMoney(r.opening)}</td><td>${formatMoney(r.emi)}</td><td>${formatMoney(r.interest)}</td><td>${formatMoney(r.principal)}</td><td>${formatMoney(r.closing)}</td></tr>`).join('');
+    return `<div style="font-weight:800;margin:0 0 8px">${title}</div><table class="schedule-table"><thead><tr><th>#</th><th>Month</th><th>Opening Balance</th><th>EMI</th><th>Interest</th><th>Principal</th><th>Closing Balance</th></tr></thead><tbody>${body}</tbody></table>`;
+}
+function renderTakeoverSchedule(){
+    if(!currentReportData || currentReportData.type!=='takeover') return;
+    const start=activeScheduleDate('takeover');
+    const oldRows=buildSchedule(currentReportData.principal,currentReportData.oldRate,currentReportData.oldMonths,start,currentReportData.oldEMI);
+    const newRows=buildSchedule(currentReportData.principal,currentReportData.newRate,currentReportData.newMonths,start,currentReportData.newEMI);
+    document.getElementById('takeoverScheduleSummary').innerHTML=`<span class="schedule-pill">Created: ${formatMonthYear(currentReportData.createdDate)}</span><span class="schedule-pill">Start: ${formatMonthYear(start)}</span><span class="schedule-pill">Existing: ${oldRows.length} months</span><span class="schedule-pill">New: ${newRows.length} months</span>`;
+    document.getElementById('takeoverScheduleTable').innerHTML=`<div class="schedule-dual-grid"><div class="schedule-subpanel"><div class="schedule-subtitle">Existing Loan EMI Schedule</div>${scheduleTableHTML(oldRows,'')}</div><div class="schedule-subpanel"><div class="schedule-subtitle">New Loan EMI Schedule</div>${scheduleTableHTML(newRows,'')}</div></div>`;
+}
+function renderNewLoanSchedule(){
+    if(!currentReportData || currentReportData.type!=='new') return;
+    const start=activeScheduleDate('new');
+    const rows=buildSchedule(currentReportData.principal,currentReportData.rate,currentReportData.months,start,currentReportData.emi);
+    document.getElementById('newLoanScheduleSummary').innerHTML=`<span class="schedule-pill">Created: ${formatMonthYear(currentReportData.createdDate)}</span><span class="schedule-pill">Start: ${formatMonthYear(start)}</span><span class="schedule-pill">Tenure: ${rows.length} months</span><span class="schedule-pill">EMI: ${formatMoney(currentReportData.emi)}</span>`;
+    document.getElementById('newLoanScheduleTable').innerHTML=scheduleTableHTML(rows,'New Loan');
+}
+
+function setTakeoverReportData(data){
+    currentReportData={...data,type:'takeover',createdDate:new Date(),startDate:activeScheduleDate('takeover')};
+    setupScheduleDates(); renderTakeoverSchedule();
+}
+function setNewLoanReportData(data){
+    currentReportData={...data,type:'new',createdDate:new Date(),startDate:activeScheduleDate('new')};
+    setupScheduleDates(); renderNewLoanSchedule();
+}
+
+
 /* =========================================================
    SAVE / PRINT PDF
 ========================================================= */
 
-function savePDF(){
-
-    if(
-        document.getElementById(
-            "results"
-        ).style.display !== "block"
-    ){
-
-        alert(
-            "Please calculate the loan first."
-        );
-
-        return;
-
+async function buildPDFFile(){
+    if(!currentReportData){ alert('Please calculate a loan first.'); return null; }
+    if(!window.jspdf || !window.jspdf.jsPDF){
+        alert('PDF engine is loading. Please try again in a moment.');
+        return null;
     }
-
-
-    window.print();
-
+    const {jsPDF}=window.jspdf; const doc=new jsPDF({unit:'pt',format:'a4'});
+    const margin=36; let y=42; const pageW=doc.internal.pageSize.getWidth();
+    const add=(text,size=10,bold=false)=>{doc.setFont('helvetica',bold?'bold':'normal');doc.setFontSize(size); const lines=doc.splitTextToSize(String(text),pageW-margin*2); if(y+lines.length*14>800){doc.addPage();y=42;} doc.text(lines,margin,y); y+=lines.length*14+5;};
+    add('FinMathEd',20,true); add(currentReportData.type==='takeover'?'Loan Takeover CalC':'New Loan CalC',15,true); add('Created: '+new Date().toLocaleString('en-IN'),9,false); y+=5;
+    add('Customer: '+currentReportData.customerName,10,true); add('Mobile: '+currentReportData.customerMobile); add('Loan Type: '+currentReportData.loanType);
+    if(currentReportData.cibilScore) add('CIBIL Score: '+currentReportData.cibilScore);
+    if(currentReportData.type==='takeover'){
+        add('Outstanding Loan: '+formatMoney(currentReportData.principal)); add('Existing EMI: '+formatMoney(currentReportData.oldEMI)); add('New EMI: '+formatMoney(currentReportData.newEMI)); add('Interest Saving: '+formatMoney(currentReportData.interestSaving)); add('Estimated Net Benefit: '+formatMoney(currentReportData.netSaving)); add('EMI Difference: '+formatMoney(currentReportData.emiDifference));
+        const start=activeScheduleDate('takeover'); add('Schedule Start: '+formatMonthYear(start));
+        const oldRows=buildSchedule(currentReportData.principal,currentReportData.oldRate,currentReportData.oldMonths,start,currentReportData.oldEMI); const newRows=buildSchedule(currentReportData.principal,currentReportData.newRate,currentReportData.newMonths,start,currentReportData.newEMI);
+        add('Monthly Repayment Schedule — Existing Loan',11,true); addSchedulePDF(doc,oldRows,margin,pageW);
+        add('Monthly Repayment Schedule — New Loan',11,true); addSchedulePDF(doc,newRows,margin,pageW);
+    }else{
+        add('Required Loan: '+formatMoney(currentReportData.principal)); add('New Loan EMI: '+formatMoney(currentReportData.emi)); add('Total Interest: '+formatMoney(currentReportData.totalInterest)); add('Total Repayment: '+formatMoney(currentReportData.totalRepayment)); add('EMI/NMI Ratio: '+currentReportData.emiRatio.toFixed(1)+'%'); add('Selected EMI/NMI Benchmark: '+currentReportData.benchmark+'%'); add('Schedule Start: '+formatMonthYear(activeScheduleDate('new')));
+        const rows=buildSchedule(currentReportData.principal,currentReportData.rate,currentReportData.months,activeScheduleDate('new'),currentReportData.emi); add('Monthly Repayment Schedule',11,true); addSchedulePDF(doc,rows,margin,pageW);
+    }
+    add('This report is an indicative calculation, not a loan sanction or guarantee.',8,false);
+    return doc.output('blob');
+}
+function addSchedulePDF(doc,rows,margin,pageW){
+    doc.setFont('helvetica','normal');doc.setFontSize(7);
+    const headers=['#','Month','Opening','EMI','Interest','Principal','Closing']; const widths=[22,55,80,70,70,70,80];
+    let y=doc.lastAutoTableY||0; // harmless if plugin absent
+    // Manual table pagination
+    y=doc.internal.getCurrentPageInfo?Math.max(42,doc.lastY||42):42;
+    if(y<80)y=80;
+    const rowH=13;
+    const drawHeader=()=>{doc.setFont('helvetica','bold');let x=margin;headers.forEach((h,i)=>{doc.text(h,x,y);x+=widths[i];});y+=rowH;doc.setFont('helvetica','normal');};
+    drawHeader();
+    rows.forEach(r=>{if(y>780){doc.addPage();y=42;drawHeader();}let vals=[r.no,r.date,Math.round(r.opening).toLocaleString('en-IN'),Math.round(r.emi).toLocaleString('en-IN'),Math.round(r.interest).toLocaleString('en-IN'),Math.round(r.principal).toLocaleString('en-IN'),Math.round(r.closing).toLocaleString('en-IN')];let x=margin;vals.forEach((v,i)=>{doc.text(String(v),x,y);x+=widths[i];});y+=rowH;});
+    doc.lastY=y+8;
+}
+async function savePDF(){
+    const blob=await buildPDFFile(); if(!blob)return;
+    const name='FinMathEd-'+(currentReportData?.type==='takeover'?'Loan-Takeover-CalC':'New-Loan-CalC')+'-'+new Date().toISOString().slice(0,10)+'.pdf';
+    const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+async function sharePDF(){
+    const blob=await buildPDFFile(); if(!blob)return;
+    const name='FinMathEd-'+(currentReportData?.type==='takeover'?'Loan-Takeover-CalC':'New-Loan-CalC')+'.pdf';
+    const file=new File([blob],name,{type:'application/pdf'});
+    if(navigator.canShare && navigator.canShare({files:[file]})){
+        try{await navigator.share({title:'FinMathEd Loan Report',text:'FinMathEd calculation report',files:[file]});return;}catch(e){if(e.name==='AbortError')return;}
+    }
+    alert('PDF is ready. Your browser does not support direct file sharing here, so it will be downloaded instead.');
+    const url=URL.createObjectURL(blob); const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
 
 
@@ -3446,7 +3988,7 @@ Estimated Net Benefit: ${netSaving}
 Monthly EMI Difference: ${emiDifference}
 Transfer Cost Recovery: ${recovery}
 
-Generated using FinMathed
+Generated using FinMathEd
 https://finmathed.com`;
 
 
@@ -3459,7 +4001,7 @@ https://finmathed.com`;
             await navigator.share({
 
                 title:
-                    "FinMathed Loan Transfer Report",
+                    "FinMathEd Loan Transfer Report",
 
                 text:
                     text
@@ -3507,216 +4049,242 @@ https://finmathed.com`;
 ========================================================= */
 
 function shareWhatsApp(){
-
-    const customerName =
-        document.getElementById(
-            "customerName"
-        ).value.trim();
-
-
-    const loanType =
-        document.getElementById(
-            "loanType"
-        ).value;
-
-
-    const netSaving =
-        document.getElementById(
-            "netSaving"
-        ).textContent;
-
-
-    const emiDifference =
-        document.getElementById(
-            "emiDifference"
-        ).textContent;
-
-
-    const recovery =
-        document.getElementById(
-            "breakEven"
-        ).textContent;
-
-
-    const message =
-`Hello Vikas,
-
-I have used the FinMathed Loan Transfer Calculator.
-
-Customer: ${customerName}
-Loan Type: ${loanType}
-
-Estimated Net Benefit: ${netSaving}
-Monthly EMI Difference: ${emiDifference}
-Transfer Cost Recovery: ${recovery}
-
-I would like to discuss this loan calculation.`;
-
-
-    const url =
-        "https://wa.me/919216011340?text=" +
-        encodeURIComponent(message);
-
-
-    window.open(
-        url,
-        "_blank"
-    );
-
-}
-
-
-/* Private admin authentication/dashboard code is hosted only in /leader.html. */
-
-/* =========================================================
-   HTML ESCAPE
-========================================================= */
-
-function escapeHTML(value){
-
-    return String(
-        value ?? ""
-    )
-    .replace(
-        /&/g,
-        "&amp;"
-    )
-    .replace(
-        /</g,
-        "&lt;"
-    )
-    .replace(
-        />/g,
-        "&gt;"
-    )
-    .replace(
-        /"/g,
-        "&quot;"
-    )
-    .replace(
-        /'/g,
-        "&#039;"
-    );
-
+    if(!currentReportData){alert('Please calculate a loan first.');return;}
+    let message='';
+    if(currentReportData.type==='takeover'){
+        message=`FinMathEd Loan Takeover CalC\n\nCustomer: ${currentReportData.customerName}\nLoan Type: ${currentReportData.loanType}\nOutstanding: ${formatMoney(currentReportData.principal)}\nExisting EMI: ${formatMoney(currentReportData.oldEMI)}\nNew EMI: ${formatMoney(currentReportData.newEMI)}\nEMI Difference: ${formatMoney(currentReportData.emiDifference)}\nInterest Saving: ${formatMoney(currentReportData.interestSaving)}\nEstimated Net Benefit: ${formatMoney(currentReportData.netSaving)}\nSchedule Start: ${formatMonthYear(activeScheduleDate('takeover'))}\n\nGenerated by FinMathEd\nhttps://finmathed.com`;
+    }else{
+        message=`FinMathEd New Loan CalC\n\nCustomer: ${currentReportData.customerName}\nLoan Type: ${currentReportData.loanType}\nRequired Loan: ${formatMoney(currentReportData.principal)}\nNew Loan EMI: ${formatMoney(currentReportData.emi)}\nTotal Interest: ${formatMoney(currentReportData.totalInterest)}\nTotal Repayment: ${formatMoney(currentReportData.totalRepayment)}\nEMI/NMI Ratio: ${currentReportData.emiRatio.toFixed(1)}%\nSchedule Start: ${formatMonthYear(activeScheduleDate('new'))}\n\nGenerated by FinMathEd\nhttps://finmathed.com`;
+    }
+    const url='https://wa.me/?text='+encodeURIComponent(message); window.open(url,'_blank','noopener');
 }
 
 
 /* =========================================================
-   RESIZE CHART
+   NEW LOAN ENQUIRY CALCULATOR
 ========================================================= */
 
-window.addEventListener(
-    "resize",
-    function(){
+function validateNewLoanMobile(mobile){
+    return /^[6-9][0-9]{9}$/.test(mobile || "");
+}
 
-        const results =
-            document.getElementById(
-                "results"
-            );
+function getCibil(type){
+    const scoreId = type === "transfer" ? "transferCibilScore" : "newCibilScore";
+    const raw = document.getElementById(scoreId).value.trim();
+    const score = raw === "" ? null : Number(raw);
+    if(score !== null && (!Number.isInteger(score) || score < 300 || score > 900)){
+        alert("Please enter a valid CIBIL score between 300 and 900, or leave it blank.");
+        return null;
+    }
+    return {score, source: "Manual Entry"};
+}
 
+function setNewLoanBar(id, value, income){
+    const pct = income > 0 ? Math.max(0, Math.min(100, (value / income) * 100)) : 0;
+    document.getElementById(id).style.width = pct + "%";
+}
 
-        if(
-            results &&
-            results.style.display ===
-            "block"
-        ){
+async function calculateNewLoan(){
 
-            const outstanding =
-                Number(
-                    document.getElementById(
-                        "outstanding"
-                    ).value
-                );
+    const customerName = document.getElementById("newCustomerName").value.trim();
+    const customerMobile = document.getElementById("newCustomerMobile").value.trim();
+    const loanType = document.getElementById("newLoanType").value;
+    const cibilSource = "Manual Entry";
+    const cibilRaw = document.getElementById("newCibilScore").value.trim();
+    const cibilScore = cibilRaw === "" ? null : Number(cibilRaw);
+    const netIncome = Number(document.getElementById("netIncome").value) || 0;
+    const existingEMI = Number(document.getElementById("existingEMI").value) || 0;
+    const emiNmiRatio = Number(document.getElementById("emiNmiRatio").value) || 0;
+    const loanAmount = Number(document.getElementById("requiredLoanAmount").value) || 0;
+    const rate = Number(document.getElementById("newLoanRate").value) || 0;
+    const years = Number(document.getElementById("newLoanYears").value) || 0;
+    const monthsInput = Number(document.getElementById("newLoanMonths").value) || 0;
+    const processingPercent = Number(document.getElementById("newProcessingCharge").value) || 0;
+    const tenureMonths = years * 12 + monthsInput;
 
+    if(!customerName){ alert("Please enter customer name."); return; }
+    if(!validateNewLoanMobile(customerMobile)){ alert("Please enter a valid 10 digit Indian mobile number."); return; }
+    if(cibilScore !== null && (!Number.isInteger(cibilScore) || cibilScore < 300 || cibilScore > 900)){ alert("Please enter a valid CIBIL score between 300 and 900, or leave it blank."); return; }
+    if(netIncome <= 0){ alert("Please enter monthly net income."); return; }
+    if(existingEMI < 0){ alert("Please enter valid existing EMI / obligations."); return; }
+    if(emiNmiRatio <= 0 || emiNmiRatio > 100){ alert("Please enter an EMI/NMI ratio between 1% and 100%."); return; }
+    if(loanAmount <= 0){ alert("Please enter the required new loan amount."); return; }
+    if(rate < 0){ alert("Please enter a valid interest rate."); return; }
+    if(tenureMonths <= 0){ alert("Please enter the new loan tenure."); return; }
+    if(processingPercent < 0 || processingPercent > 100){ alert("Please enter a valid processing charge percentage between 0% and 100%."); return; }
 
-            const oldRate =
-                Number(
-                    document.getElementById(
-                        "oldRate"
-                    ).value
-                );
+    const processing = loanAmount * processingPercent / 100;
 
+    const newEMI = calculateEMI(loanAmount, rate, tenureMonths);
+    const totalInterest = Math.max(0, (newEMI * tenureMonths) - loanAmount);
+    const totalRepayment = newEMI * tenureMonths;
+    const totalCost = totalRepayment + processing;
+    const totalEMI = existingEMI + newEMI;
+    const emiRatio = (totalEMI / netIncome) * 100;
+    const disposable = netIncome - totalEMI;
+    const maxTotalEMI = netIncome * (emiNmiRatio / 100);
+    const additionalEMICapacity = Math.max(0, maxTotalEMI - existingEMI);
+    const capacityLoan = additionalEMICapacity > 0 ? calculatePrincipalFromEMI(additionalEMICapacity, rate, tenureMonths) : 0;
+    const withinBenchmark = totalEMI <= maxTotalEMI;
 
-            const oldYears =
-                Number(
-                    document.getElementById(
-                        "oldYears"
-                    ).value
-                ) || 0;
+    document.getElementById("nlEMI").textContent = formatMoney(newEMI);
+    document.getElementById("nlInterest").textContent = formatMoney(totalInterest);
+    document.getElementById("nlRepayment").textContent = formatMoney(totalRepayment);
+    document.getElementById("nlCost").textContent = formatMoney(totalCost);
+    document.getElementById("nlTotalEMI").textContent = formatMoney(totalEMI);
+    document.getElementById("nlRatio").textContent = emiRatio.toFixed(1) + "%";
+    document.getElementById("nlDisposable").textContent = formatMoney(disposable);
+    document.getElementById("nlMaxEMI").textContent = formatMoney(maxTotalEMI);
+    document.getElementById("nlCapacity").textContent = formatMoney(capacityLoan);
+    document.getElementById("nlAdditionalEMI").textContent = formatMoney(additionalEMICapacity);
 
+    document.getElementById("barIncomeText").textContent = formatMoney(netIncome);
+    document.getElementById("barEMIText").textContent = formatMoney(Math.max(0,totalEMI));
+    document.getElementById("barDisposableText").textContent = formatMoney(Math.max(0, disposable));
+    setNewLoanBar("barEMI", Math.max(0,totalEMI), netIncome);
+    setNewLoanBar("barDisposable", Math.max(0, disposable), netIncome);
 
-            const oldMonths =
-                Number(
-                    document.getElementById(
-                        "oldMonths"
-                    ).value
-                ) || 0;
+    const status = document.getElementById("nlStatus");
+    if(withinBenchmark){
+        status.innerHTML = "<strong>✓ Within the selected EMI/NMI ratio</strong><small>Your total EMI is within " + emiNmiRatio.toFixed(1) + "% of monthly net income. This is only a calculation benchmark and does not mean a lender will approve the requested amount.</small>";
+    }else{
+        status.innerHTML = "<strong>⚠ Above the selected EMI/NMI ratio</strong><small>Your total EMI is above the selected " + emiNmiRatio.toFixed(1) + "% of monthly net income. A lower loan amount, longer tenure or different rate may reduce the monthly burden.</small>";
+    }
 
+    document.getElementById("newLoanResults").classList.add("show");
+    document.getElementById("newLoanResults").scrollIntoView({behavior:"smooth",block:"start"});
 
-            const newRate =
-                Number(
-                    document.getElementById(
-                        "newRate"
-                    ).value
-                );
+    const saved = await saveNewLoanEnquiry({
+        customerName, customerMobile, loanType, cibilScore, cibilSource,
+        netIncome, existingEMI, emiNmiRatio, loanAmount, rate, years,
+        months: monthsInput, tenureMonths, processingPercent, processing, newEMI, totalInterest,
+        totalRepayment, totalCost, totalEMI, emiRatio, disposable,
+        maxTotalEMI, additionalEMICapacity, capacityLoan, withinBenchmark
+    });
 
+    const saveStatus = document.getElementById("newLoanSaveStatus");
+    if(saved){
+        saveStatus.textContent = "✓ Enquiry saved online successfully.";
+        saveStatus.className = "save-status success";
+    }
+    // If saving fails, saveNewLoanEnquiry() already writes the exact Supabase
+    // error into this same status area. Do not overwrite it with a generic message.
+    else if(!saveStatus.textContent){
+        saveStatus.textContent = "⚠ Online save failed. Please try again.";
+        saveStatus.className = "save-status error";
+    }
 
-            const newYears =
-                Number(
-                    document.getElementById(
-                        "newYears"
-                    ).value
-                ) || 0;
+    setNewLoanReportData({
+        customerName, customerMobile, loanType, cibilScore,
+        principal:loanAmount, rate, months:tenureMonths, emi:newEMI,
+        totalInterest, totalRepayment, emiRatio, benchmark:emiNmiRatio
+    });
+}
 
+function calculatePrincipalFromEMI(emi, annualRate, months){
+    if(emi <= 0 || months <= 0) return 0;
+    if(annualRate === 0) return emi * months;
+    const r = annualRate / 12 / 100;
+    const factor = Math.pow(1 + r, months);
+    return emi * (factor - 1) / (r * factor);
+}
 
-            const newMonths =
-                Number(
-                    document.getElementById(
-                        "newMonths"
-                    ).value
-                ) || 0;
+async function saveNewLoanEnquiry(data){
+    try{
+        // First try the complete current schema, including CIBIL and EMI/NMI fields.
+        const payload = {
+            customer_name: data.customerName,
+            customer_mobile: data.customerMobile,
+            loan_type: data.loanType,
+            monthly_income: data.netIncome,
+            existing_emi: data.existingEMI,
+            required_loan_amount: data.loanAmount,
+            interest_rate: data.rate,
+            tenure_years: data.years,
+            tenure_months: data.months,
+            processing_charge_percent: data.processingPercent,
+            processing_charge: data.processing,
+            new_loan_emi: data.newEMI,
+            total_interest: data.totalInterest,
+            total_repayment: data.totalRepayment,
+            total_loan_cost: data.totalCost,
+            total_emi_after_new_loan: data.totalEMI,
+            emi_nmi_ratio: data.emiNmiRatio,
+            actual_emi_nmi_ratio: data.emiRatio,
+            estimated_disposable_income: data.disposable,
+            indicative_affordable_emi: data.maxTotalEMI,
+            additional_emi_capacity: data.additionalEMICapacity,
+            indicative_loan_capacity: data.capacityLoan,
+            within_emi_nmi_benchmark: data.withinBenchmark,
+            cibil_score: data.cibilScore,
+            cibil_source: data.cibilSource
+        };
 
+        let result = await supabaseClient.from("new_loan_enquiries").insert(payload);
 
-            const oldTotalMonths =
-                oldYears * 12 +
-                oldMonths;
+        // Compatibility fallback: if the database has the original table but
+        // the newly-added CIBIL/EMI-NMI columns have not reached the API yet,
+        // save the complete original enquiry instead of losing the customer record.
+        if(result.error){
+            console.warn("Full new-loan insert failed. Retrying with core fields:", result.error.message);
 
+            const corePayload = {
+                customer_name: data.customerName,
+                customer_mobile: data.customerMobile,
+                loan_type: data.loanType,
+                monthly_income: data.netIncome,
+                existing_emi: data.existingEMI,
+                required_loan_amount: data.loanAmount,
+                interest_rate: data.rate,
+                tenure_years: data.years,
+                tenure_months: data.months,
+                processing_charge_percent: data.processingPercent,
+                processing_charge: data.processing,
+                new_loan_emi: data.newEMI,
+                total_interest: data.totalInterest,
+                total_repayment: data.totalRepayment,
+                total_loan_cost: data.totalCost,
+                total_emi_after_new_loan: data.totalEMI,
+                actual_emi_nmi_ratio: data.emiRatio,
+                estimated_disposable_income: data.disposable,
+                maximum_emi_at_selected_ratio: data.maxTotalEMI,
+                additional_emi_capacity: data.additionalEMICapacity,
+                indicative_loan_capacity: data.capacityLoan,
+                within_emi_nmi_benchmark: data.withinBenchmark
+            };
 
-            const newTotalMonths =
-                newYears * 12 +
-                newMonths;
-
-
-            const oldEMI =
-                calculateEMI(
-                    outstanding,
-                    oldRate,
-                    oldTotalMonths
-                );
-
-
-            const newEMI =
-                calculateEMI(
-                    outstanding,
-                    newRate,
-                    newTotalMonths
-                );
-
-
-            drawLoanChart(
-                outstanding,
-                oldEMI,
-                oldTotalMonths,
-                newEMI,
-                newTotalMonths
-            );
-
+            result = await supabaseClient.from("new_loan_enquiries").insert(corePayload);
         }
 
-    }
-);
+        if(result.error){
+            const message = result.error.message || "Unknown database error";
+            console.error("New loan enquiry save failed:", result.error);
+            const saveStatus = document.getElementById("newLoanSaveStatus");
+            if(saveStatus){
+                saveStatus.textContent = "⚠ Online save failed: " + message;
+                saveStatus.className = "save-status error";
+            }
+            return false;
+        }
 
+        return true;
+    }catch(error){
+        console.error("Unable to save new loan enquiry:", error);
+        const saveStatus = document.getElementById("newLoanSaveStatus");
+        if(saveStatus){
+            saveStatus.textContent = "⚠ Online save failed: " + (error.message || error);
+            saveStatus.className = "save-status error";
+        }
+        return false;
+    }
+}
+
+setupScheduleDates();
 </script>
 
+<script>
+(function(){const b=document.getElementById("creatorToggle"),d=document.getElementById("creatorDetails"),a=document.getElementById("creatorArrow");if(!b||!d||!a)return;b.addEventListener("click",function(){const o=b.getAttribute("aria-expanded")==="true";b.setAttribute("aria-expanded",String(!o));d.hidden=o;a.textContent=o?"⌄":"⌃";});})();
+</script>
 </body>
 </html>
+
